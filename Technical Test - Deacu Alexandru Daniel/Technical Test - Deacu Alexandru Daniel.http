@@ -1,0 +1,6 @@
+@Technical_Test___Deacu_Alexandru_Daniel_HostAddress = http://localhost:5002
+
+GET {{Technical_Test___Deacu_Alexandru_Daniel_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
