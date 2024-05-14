@@ -4,6 +4,11 @@
     {
         public int FindSingleNumber(int[] numbers)
         {
+            if(numbers == null)
+            {
+                throw new ArgumentNullException("Input is null");
+            }
+
             HashSet<int> seen = new HashSet<int>();
 
             foreach (int num in numbers)
@@ -23,7 +28,7 @@
                 return seen.FirstOrDefault();
             }
 
-            throw new Exception("Wrong Input");
+            throw new Exception("Wrong input");
         }
     }
 }

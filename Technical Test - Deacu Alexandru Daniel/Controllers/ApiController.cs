@@ -1,4 +1,6 @@
+
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using Technical_Test___Deacu_Alexandru_Daniel.Services;
 
 namespace Technical_Test___Deacu_Alexandru_Daniel.Controllers
@@ -18,15 +20,29 @@ namespace Technical_Test___Deacu_Alexandru_Daniel.Controllers
         }
 
         [HttpPost("/balancedBrackets")]
-        public string CheckBalancedBrackets([FromBody] string? brackets)
+        public IActionResult CheckBalancedBrackets([FromBody] string? brackets)
         {
-            return balancedBracketsService.CheckBalancedBrackets(brackets);
+            try
+            {
+                return Ok(balancedBracketsService.CheckBalancedBrackets(brackets));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
 
         [HttpPost("/singleNumber")]
-        public int FindSingleNumber(int[] numbers)
+        public IActionResult FindSingleNumber(int[] numbers)
         {
-            return findSingleNumberService.FindSingleNumber(numbers);
+            try
+            {
+                return Ok(findSingleNumberService.FindSingleNumber(numbers));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
     }
 }
