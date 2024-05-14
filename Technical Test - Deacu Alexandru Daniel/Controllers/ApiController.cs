@@ -7,63 +7,26 @@ namespace Technical_Test___Deacu_Alexandru_Daniel.Controllers
     [Route("/api")]
     public class ApiController : ControllerBase
     {
-        protected readonly IApiService apiService;
-        public ApiController(IApiService apiService)
+        protected readonly IBalancedBracketsService balancedBracketsService;
+        protected readonly IFindSingleNumberService findSingleNumberService;
+
+        public ApiController(IBalancedBracketsService balancedBracketsService, 
+            IFindSingleNumberService findSingleNumberService)
         {
-            this.apiService = apiService;   
+            this.balancedBracketsService = balancedBracketsService;   
+            this.findSingleNumberService = findSingleNumberService;
         }
 
         [HttpPost("/balancedBrackets")]
         public string CheckBalancedBrackets([FromBody] string? brackets)
         {
-            if (brackets == string.Empty || brackets == null)
-            {
-                throw new ArgumentNullException("Input null or empty string");
-            }
-
-            Stack<char> charStack = new Stack<char>();
-
-            foreach (char c in brackets)
-            {
-                if (c == '(' || c == '[' || c == '{')
-                {
-                    charStack.Push(c);
-                }
-                else
-                {
-                    if (charStack.Count == 0 || !apiService.IsMatchingPair(charStack.Pop(), c))
-                    {
-                        return "Not Balanced";
-                    }
-                }
-            }
-
-            return charStack.Count == 0 ? "Balanced" : "Not Balanced";
+            return balancedBracketsService.CheckBalancedBrackets(brackets);
         }
 
         [HttpPost("/singleNumber")]
         public int FindSingleNumber(int[] numbers)
         {
-            HashSet<int> seen = new HashSet<int>();
-
-            foreach (int num in numbers)
-            {
-                if (seen.Contains(num))
-                {
-                    seen.Remove(num);
-                }
-                else
-                {
-                    seen.Add(num);
-                }
-            }
-
-            if (seen.Count == 1)
-            {
-                return seen.FirstOrDefault();
-            }
-
-            throw new Exception("Wrong Input");
+            return findSingleNumberService.FindSingleNumber(numbers);
         }
     }
 }

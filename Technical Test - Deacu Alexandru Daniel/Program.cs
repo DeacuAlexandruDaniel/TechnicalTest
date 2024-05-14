@@ -11,13 +11,13 @@ namespace Technical_Test___Deacu_Alexandru_Daniel
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddTransient<IBalancedBracketsService, BalancedBracketsService>();
+            builder.Services.AddTransient<IFindSingleNumberService, FindSingleNumberService>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
-            builder.Services.AddTransient<IApiService, ApiService>();
 
             var app = builder.Build();
 

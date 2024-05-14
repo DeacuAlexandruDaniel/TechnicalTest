@@ -12,8 +12,9 @@ namespace YourTestNamespace
         [SetUp]
         public void Setup()
         {
-            var apiService = new ApiService(); 
-            _controller = new ApiController(apiService);
+            var balancedBracketsService = new BalancedBracketsService(); 
+            var findSingleNumberService = new FindSingleNumberService(); 
+            _controller = new ApiController(balancedBracketsService, findSingleNumberService);
         }
 
         [Test]
@@ -41,7 +42,7 @@ namespace YourTestNamespace
         {
             // Act and Assert
             var ex = Assert.Throws<ArgumentNullException>(() => _controller.CheckBalancedBrackets(""));
-            Assert.AreEqual("Input null or empty string", ex.ParamName);
+            Assert.AreEqual("Input is null or empty string", ex.ParamName);
         }
 
         [Test]
@@ -49,7 +50,7 @@ namespace YourTestNamespace
         {
             // Act and Assert
             var ex = Assert.Throws<ArgumentNullException>(() => _controller.CheckBalancedBrackets(null));
-            Assert.AreEqual("Input null or empty string", ex.ParamName);
+            Assert.AreEqual("Input is null or empty string", ex.ParamName);
         }
 
 
